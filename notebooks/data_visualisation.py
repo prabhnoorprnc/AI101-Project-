@@ -7,7 +7,7 @@ from pathlib import Path
 PROJECT_DIR = Path(__file__).resolve().parent.parent
 
 INPUT_PATH = (
-    PROJECT_DIR / "outputs" / "Data_Preprocessing" / "cleaned_dataset.csv"
+    PROJECT_DIR / "outputs" / "Data_Processing" / "cleaned_dataset.csv"
 )
 
 OUTPUT_DIR = (
