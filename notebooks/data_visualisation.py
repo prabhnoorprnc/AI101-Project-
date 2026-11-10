@@ -69,7 +69,6 @@ plt.title("Correlation Heatmap")
 plt.tight_layout()
 
 plt.savefig(OUTPUT_DIR / "correlation_heatmap.png")
-plt.show()
 plt.close()
 
 # Histograms of numerical columns
@@ -79,7 +78,6 @@ plt.suptitle("Distribution of CPU Dataset Features")
 plt.tight_layout()
 
 plt.savefig(OUTPUT_DIR / "feature_distributions.png")
-plt.show()
 plt.close()
 
 # Feature vs target scatter plots
@@ -108,7 +106,6 @@ for column in feature_columns:
     plt.tight_layout()
 
     plt.savefig(OUTPUT_DIR / f"{column}_vs_performance.png")
-    plt.show()
     plt.close()
 
 print("\nData analysis and visualization completed.")
