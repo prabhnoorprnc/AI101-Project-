@@ -26,12 +26,14 @@ scripts = [
 
 # Expected files generated after successful execution
 expected_outputs = [
-    "cleaned_dataset.csv",
-    "correlation_heatmap.png",
-    "feature_relationships.png",
-    "trained_model.pkl",
-    "evaluation_metrics.csv",
-    "actual_vs_predicted.png"
+    Path("Data_Processing/cleaned_dataset.csv"),
+
+    Path("Data_Analysis_Visualisation/correlation_heatmap.png"),
+    Path("Data_Analysis_Visualisation/feature_relationships.png"),
+
+    Path("Model_Training/linear_regression_model.pkl"),
+    Path("Model_Training/evaluation_metrics.csv"),
+    Path("Model_Training/actual_vs_predicted.png")
 ]
 
 
@@ -77,7 +79,7 @@ def main():
             print(f"[MISSING] {filename}")
 
      # Display evaluation metrics if the CSV file exists
-    metrics_path = OUTPUT_DIR / "evaluation_metrics.csv"
+    metrics_path = OUTPUT_DIR / "Model_Training" / "evaluation_metrics.csv"
 
     if metrics_path.exists():
         print("\n========== EVALUATION RESULTS ==========\n")

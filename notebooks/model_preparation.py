@@ -14,9 +14,9 @@ from sklearn.linear_model import LinearRegression
 
 PROJECT_DIR = Path(__file__).resolve().parent.parent
 
-INPUT_PATH = PROJECT_DIR / "outputs" / "cleaned_dataset.csv"
+INPUT_PATH = PROJECT_DIR / "outputs" / "Data_Processing" / "cleaned_dataset.csv"
 
-OUTPUT_DIR = PROJECT_DIR / "outputs"
+OUTPUT_DIR = PROJECT_DIR / "outputs" / "Model_Training"
 OUTPUT_DIR.mkdir(parents=True, exist_ok=True)
 
 
@@ -110,7 +110,7 @@ print("\nIntercept:", model.intercept_)
 
 joblib.dump(
     model,
-    OUTPUT_DIR / "trained_model.pkl"
+    OUTPUT_DIR / "linear_regression_model.pkl"
 )
 
 print("\nTrained model saved successfully!")

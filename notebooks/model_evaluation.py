@@ -13,10 +13,10 @@ from sklearn.metrics import mean_absolute_error, mean_squared_error, r2_score
 # --------------------------------------------------
 
 PROJECT_DIR = Path(__file__).resolve().parent.parent
-OUTPUT_DIR = PROJECT_DIR / "outputs"
+OUTPUT_DIR = PROJECT_DIR / "outputs" / "Model_Training"
 
-DATA_PATH = OUTPUT_DIR / "cleaned_dataset.csv"
-MODEL_PATH = OUTPUT_DIR / "trained_model.pkl"
+DATA_PATH = PROJECT_DIR / "outputs" / "Data_Processing" / "cleaned_dataset.csv"
+MODEL_PATH = OUTPUT_DIR / "linear_regression_model.pkl"
 
 OUTPUT_DIR.mkdir(parents=True, exist_ok=True)
 

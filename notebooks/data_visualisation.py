@@ -10,9 +10,9 @@ from pathlib import Path
 
 PROJECT_DIR = Path(__file__).resolve().parent.parent
 
-INPUT_PATH = PROJECT_DIR / "outputs" / "cleaned_dataset.csv"
+INPUT_PATH = PROJECT_DIR / "outputs" / "Data_Processing" / "cleaned_dataset.csv"
 
-OUTPUT_DIR = PROJECT_DIR / "outputs"
+OUTPUT_DIR = PROJECT_DIR / "outputs" / "Data_Analysis_Visualisation"
 OUTPUT_DIR.mkdir(parents=True, exist_ok=True)
 
 
