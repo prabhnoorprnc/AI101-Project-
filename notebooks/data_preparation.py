@@ -8,8 +8,7 @@ PROJECT_DIR = Path(__file__).resolve().parent.parent
 
 DATA_PATH = PROJECT_DIR / "data" / "Sample-Data-CPU-Performance.csv"
 
-
-OUTPUT_DIR = PROJECT_DIR / "outputs" / "Data_Processing"
+OUTPUT_DIR = PROJECT_DIR / "outputs"
 
 OUTPUT_DIR.mkdir(parents=True, exist_ok=True)
 
@@ -87,15 +86,7 @@ print(y.head())
 print("\nFeatures Shape:", X.shape)
 print("Target Shape:", y.shape)
 
-
-
 df.to_csv(OUTPUT_DIR / "cleaned_dataset.csv", index=False)
-
-X.to_csv(OUTPUT_DIR / "features.csv", index=False)
-
-y.to_frame().to_csv(OUTPUT_DIR / "target.csv", index=False)
-
-
 
 print("\nPreprocessing Completed Successfully!")
 
