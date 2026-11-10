@@ -85,9 +85,7 @@ print("\nTraining data shape:", X_train.shape)
 print("Testing data shape:", X_test.shape)
 
 
-# --------------------------------------------------
 # 6. Create Linear Regression model
-# --------------------------------------------------
 
 model = LinearRegression()
 
