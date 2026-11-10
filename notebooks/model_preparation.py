@@ -1,9 +1,6 @@
-
-# ==========================================
 # Project: AI101 - CPU Performance Prediction
 # Task: Model Training
 # Member 3
-# ==========================================
 
 import pandas as pd
 import joblib
@@ -13,9 +10,7 @@ from sklearn.model_selection import train_test_split
 from sklearn.linear_model import LinearRegression
 
 
-# --------------------------------------------------
 # 1. Project paths
-# --------------------------------------------------
 
 PROJECT_DIR = Path(__file__).resolve().parent.parent
 
@@ -25,9 +20,9 @@ OUTPUT_DIR = PROJECT_DIR / "outputs"
 OUTPUT_DIR.mkdir(parents=True, exist_ok=True)
 
 
-# --------------------------------------------------
+
 # 2. Load cleaned dataset from Member 1
-# --------------------------------------------------
+
 
 df = pd.read_csv(INPUT_PATH)
 
@@ -37,9 +32,9 @@ print("\nDataset shape:")
 print(df.shape)
 
 
-# --------------------------------------------------
+
 # 3. Separate features and target
-# --------------------------------------------------
+
 
 feature_columns = [
     "CycleTime",
@@ -54,9 +49,9 @@ X = df[feature_columns]
 y = df["EstimatedPerformance"]
 
 
-# --------------------------------------------------
-# 4. Check data
-# --------------------------------------------------
+
+# 4. Data Checking
+
 
 print("\nFeatures:")
 print(X.head())
@@ -97,18 +92,15 @@ print("Testing data shape:", X_test.shape)
 model = LinearRegression()
 
 
-# --------------------------------------------------
-# 7. Train the model
-# --------------------------------------------------
+
+# 7. Model Training
 
 model.fit(X_train, y_train)
 
 print("\nModel training completed successfully!")
 
 
-# --------------------------------------------------
 # 8. Display model coefficients
-# --------------------------------------------------
 
 print("\nModel coefficients:")
 
@@ -126,9 +118,8 @@ joblib.dump(
 print("\nTrained model saved successfully!")
 
 
-# --------------------------------------------------
+
 # 10. Completion message
-# --------------------------------------------------
 
 print("\nModel training completed successfully!")
 print("Model saved in:", OUTPUT_DIR)
