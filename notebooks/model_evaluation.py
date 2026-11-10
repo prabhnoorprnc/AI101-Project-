@@ -163,6 +163,40 @@ y_pred = model.predict(X_test)
 
 
 # --------------------------------------------------
+# Prediction Error Analysis
+# --------------------------------------------------
+
+error_analysis = pd.DataFrame({
+    "Actual Performance": np.asarray(y_test).ravel(),
+    "Predicted Performance": np.asarray(y_pred).ravel()
+}, index=X_test.index)
+
+error_analysis.index.name = "Original Dataset Index"
+
+error_analysis["Residual"] = (
+    error_analysis["Actual Performance"]
+    - error_analysis["Predicted Performance"]
+)
+
+error_analysis["Absolute Residual"] = (
+    error_analysis["Residual"].abs()
+)
+
+# Identify the five observations with the largest errors
+worst_predictions = error_analysis.nlargest(
+    5, "Absolute Residual"
+)
+
+worst_predictions.to_csv(
+    OUTPUT_DIR / "worst_predictions.csv"
+)
+
+print("\nTOP 5 LARGEST PREDICTION ERRORS")
+print(worst_predictions.round(2))
+
+
+
+# --------------------------------------------------
 # 8. Calculate evaluation metrics
 # --------------------------------------------------
 
@@ -237,9 +271,83 @@ plt.close()
 
 
 # --------------------------------------------------
+# 11. Residual Analysis
+# --------------------------------------------------
+
+# Calculate residuals (Actual Values - Predicted Values)
+actual_values = np.asarray(y_test).ravel()
+predicted_values = np.asarray(y_pred).ravel()
+residuals = actual_values - predicted_values
+
+# Residuals vs Predicted Values plot
+plt.figure(figsize=(8, 5))
+
+plt.scatter(predicted_values, residuals, alpha=0.7)
+plt.axhline(y=0, linestyle="--")
+
+plt.xlabel("Predicted Performance")
+plt.ylabel("Residuals")
+plt.title("Residuals vs Predicted Values")
+plt.grid(True, alpha=0.3)
+
+plt.savefig(
+    OUTPUT_DIR / "residuals_vs_predicted.png",
+    dpi=300,
+    bbox_inches="tight"
+)
+
+plt.close()
+
+
+# Residual Distribution plot
+plt.figure(figsize=(8, 5))
+
+plt.hist(residuals, bins=15, edgecolor="black")
+plt.axvline(x=0, linestyle="--")
+
+plt.xlabel("Residual")
+plt.ylabel("Frequency")
+plt.title("Distribution of Residuals")
+plt.grid(True, alpha=0.3)
+
+plt.savefig(
+    OUTPUT_DIR / "residual_distribution.png",
+    dpi=300,
+    bbox_inches="tight"
+)
+
+plt.close()
+
+
+# Save residual statistics
+residual_statistics = pd.DataFrame({
+    "Metric": [
+        "Mean Residual",
+        "Standard Deviation",
+        "Median Absolute Residual",
+        "Maximum Absolute Residual"
+    ],
+    "Value": [
+        np.mean(residuals),
+        np.std(residuals),
+        np.median(np.abs(residuals)),
+        np.max(np.abs(residuals))
+    ]
+})
+
+residual_statistics.to_csv(
+    OUTPUT_DIR / "residual_statistics.csv",
+    index=False
+)
+
+print("\nResidual analysis completed successfully.")
+
+
+
+# --------------------------------------------------
 # 12. Completion message
 # --------------------------------------------------
 
 print("\nEvaluation Completed Successfully!")
 
-print("Evaluation metrics, cross-validation results and graph saved in outputs folder.")
+print("Evaluation metrics, cross-validation results, and residual analysis outputs saved successfully.")
