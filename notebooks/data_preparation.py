@@ -34,7 +34,7 @@ numeric_columns = [
 for col in numeric_columns:
     raw = df[col].astype(str)
 
-    # Extract numeric value from Quantity[...] or plain numeric strings
+    
     quantity_values = raw.str.extract(
         r'Quantity\[\s*([-+]?\d*\.?\d+)\s*\]',
         expand=False
