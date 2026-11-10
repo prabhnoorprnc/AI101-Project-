@@ -152,6 +152,24 @@ After installation, the project is ready to run.
 
 **Important:** Run the scripts in the following order because later stages depend on the outputs of earlier stages.
 
+### Running the Complete Project
+
+The entire project pipeline can also be executed using a single command:
+
+```powershell
+py main.py
+```
+
+The `main.py` script automatically coordinates all four project stages in the correct sequence:
+
+1. Data Preprocessing
+2. Data Analysis and Visualisation
+3. Model Training
+4. Model Evaluation
+
+It also checks whether the expected output files have been successfully generated, making it easier to verify the execution of the complete project.
+
+
 ### 1: Data Preprocessing
 
 ```powershell
