@@ -1,10 +1,12 @@
+
 import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
 import joblib
 
 from pathlib import Path
-from sklearn.model_selection import train_test_split
+from sklearn.model_selection import train_test_split, KFold, cross_validate
+from sklearn.linear_model import LinearRegression
 from sklearn.metrics import mean_absolute_error, mean_squared_error, r2_score
 
 
@@ -61,7 +63,91 @@ X_train, X_test, y_train, y_test = train_test_split(
 
 
 # --------------------------------------------------
-# 5. Load trained model
+# 5. Perform 5-Fold Cross-Validation
+# --------------------------------------------------
+
+print("\nPERFORMING 5-FOLD CROSS-VALIDATION")
+
+kf = KFold(
+    n_splits=5,
+    shuffle=True,
+    random_state=42
+)
+
+cv_results = cross_validate(
+    estimator=LinearRegression(),
+    X=X_train,
+    y=y_train,
+    cv=kf,
+    scoring={
+        "MAE": "neg_mean_absolute_error",
+        "RMSE": "neg_root_mean_squared_error",
+        "R2": "r2"
+    }
+)
+
+# Convert negative MAE and RMSE scores into positive values
+cv_mae = -cv_results["test_MAE"]
+cv_rmse = -cv_results["test_RMSE"]
+cv_r2 = cv_results["test_R2"]
+
+print("\nCROSS-VALIDATION RESULTS")
+
+for fold in range(5):
+    print(
+        f"Fold {fold + 1}: "
+        f"MAE = {cv_mae[fold]:.2f}, "
+        f"RMSE = {cv_rmse[fold]:.2f}, "
+        f"R2 = {cv_r2[fold]:.4f}"
+    )
+
+print("\nAVERAGE CROSS-VALIDATION SCORES")
+print("Mean MAE:", cv_mae.mean())
+print("Mean RMSE:", cv_rmse.mean())
+print("Mean R2:", cv_r2.mean())
+
+print("\nSTANDARD DEVIATION")
+print("MAE:", cv_mae.std())
+print("RMSE:", cv_rmse.std())
+print("R2:", cv_r2.std())
+
+# Save fold-wise results
+cv_metrics = pd.DataFrame({
+    "Fold": [f"Fold {i}" for i in range(1, 6)],
+    "MAE": cv_mae,
+    "RMSE": cv_rmse,
+    "R2": cv_r2
+})
+
+# Add mean and standard deviation rows
+cv_summary = pd.DataFrame([
+    {
+        "Fold": "Mean",
+        "MAE": cv_mae.mean(),
+        "RMSE": cv_rmse.mean(),
+        "R2": cv_r2.mean()
+    },
+    {
+        "Fold": "Standard Deviation",
+        "MAE": cv_mae.std(),
+        "RMSE": cv_rmse.std(),
+        "R2": cv_r2.std()
+    }
+])
+
+cv_metrics = pd.concat(
+    [cv_metrics, cv_summary],
+    ignore_index=True
+)
+
+cv_metrics.to_csv(
+    OUTPUT_DIR / "cross_validation_results.csv",
+    index=False
+)
+
+
+# --------------------------------------------------
+# 6. Load trained model
 # --------------------------------------------------
 
 model = joblib.load(MODEL_PATH)
@@ -70,14 +156,14 @@ print("\nTrained Model Loaded Successfully!")
 
 
 # --------------------------------------------------
-# 6. Make predictions
+# 7. Make predictions on test data
 # --------------------------------------------------
 
 y_pred = model.predict(X_test)
 
 
 # --------------------------------------------------
-# 7. Calculate evaluation metrics
+# 8. Calculate evaluation metrics
 # --------------------------------------------------
 
 mae = mean_absolute_error(y_test, y_pred)
@@ -90,7 +176,7 @@ r2 = r2_score(y_test, y_pred)
 
 
 # --------------------------------------------------
-# 8. Display evaluation results
+# 9. Display evaluation results
 # --------------------------------------------------
 
 print("\nMODEL EVALUATION RESULTS")
@@ -103,7 +189,7 @@ print("R2 Score:", r2)
 
 
 # --------------------------------------------------
-# 9. Save evaluation metrics
+# 10. Save evaluation metrics
 # --------------------------------------------------
 
 metrics = pd.DataFrame({
@@ -118,7 +204,7 @@ metrics.to_csv(
 
 
 # --------------------------------------------------
-# 10. Actual vs Predicted graph
+# 11. Actual vs Predicted graph
 # --------------------------------------------------
 
 plt.figure(figsize=(8, 6))
@@ -151,9 +237,9 @@ plt.close()
 
 
 # --------------------------------------------------
-# 11. Completion message
+# 12. Completion message
 # --------------------------------------------------
 
 print("\nEvaluation Completed Successfully!")
 
-print("Evaluation metrics and graph saved in outputs folder.")
+print("Evaluation metrics, cross-validation results and graph saved in outputs folder.")
