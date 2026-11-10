@@ -1,25 +1,27 @@
+
 import pandas as pd
 import matplotlib.pyplot as plt
 import seaborn as sns
 from pathlib import Path
 
-# Project paths
+# --------------------------------------------------
+# 1. Project paths
+# --------------------------------------------------
+
 PROJECT_DIR = Path(__file__).resolve().parent.parent
 
-INPUT_PATH = (
-    PROJECT_DIR / "outputs" / "Data_Processing" / "cleaned_dataset.csv"
-)
+INPUT_PATH = PROJECT_DIR / "outputs" / "cleaned_dataset.csv"
 
-OUTPUT_DIR = (
-    PROJECT_DIR / "outputs" / "Data_Analysis_Visualization"
-)
-
+OUTPUT_DIR = PROJECT_DIR / "outputs"
 OUTPUT_DIR.mkdir(parents=True, exist_ok=True)
 
-# Load cleaned dataset from Member 1
+
+# --------------------------------------------------
+# 2. Load cleaned dataset
+# --------------------------------------------------
+
 df = pd.read_csv(INPUT_PATH)
 
-# Display basic information
 print("\nFirst five rows:")
 print(df.head())
 
@@ -32,30 +34,37 @@ df.info()
 print("\nStatistical summary:")
 print(df.describe())
 
-# Check missing values
-missing_values = df.isnull().sum()
+
+# --------------------------------------------------
+# 3. Check missing values
+# --------------------------------------------------
 
 print("\nMissing values:")
-print(missing_values)
+print(df.isnull().sum())
 
-missing_values.to_csv(OUTPUT_DIR / "missing_values.csv")
 
-# Check duplicate rows
+# --------------------------------------------------
+# 4. Check duplicate rows
+# --------------------------------------------------
+
 print("\nNumber of duplicate rows:")
 print(df.duplicated().sum())
 
-# Save statistical summary
-df.describe().to_csv(OUTPUT_DIR / "summary_statistics.csv")
 
-# Correlation analysis
+# --------------------------------------------------
+# 5. Correlation analysis
+# --------------------------------------------------
+
 correlation = df.corr(numeric_only=True)
 
 print("\nCorrelation matrix:")
 print(correlation)
 
-correlation.to_csv(OUTPUT_DIR / "correlation_matrix.csv")
 
-# Correlation heatmap
+# --------------------------------------------------
+# 6. Correlation heatmap
+# --------------------------------------------------
+
 plt.figure(figsize=(10, 7))
 
 sns.heatmap(
@@ -68,19 +77,19 @@ sns.heatmap(
 plt.title("Correlation Heatmap")
 plt.tight_layout()
 
-plt.savefig(OUTPUT_DIR / "correlation_heatmap.png")
+plt.savefig(
+    OUTPUT_DIR / "correlation_heatmap.png",
+    dpi=300,
+    bbox_inches="tight"
+)
+
 plt.close()
 
-# Histograms of numerical columns
-df.hist(figsize=(12, 9), bins=20)
 
-plt.suptitle("Distribution of CPU Dataset Features")
-plt.tight_layout()
+# --------------------------------------------------
+# 7. Feature vs Target relationships
+# --------------------------------------------------
 
-plt.savefig(OUTPUT_DIR / "feature_distributions.png")
-plt.close()
-
-# Feature vs target scatter plots
 target_column = "EstimatedPerformance"
 
 feature_columns = [
@@ -92,21 +101,41 @@ feature_columns = [
     "MaximumNumberOfChannels"
 ]
 
-for column in feature_columns:
+fig, axes = plt.subplots(2, 3, figsize=(16, 9))
 
-    plt.figure(figsize=(7, 5))
+axes = axes.flatten()
+
+for i, column in enumerate(feature_columns):
 
     sns.scatterplot(
         data=df,
         x=column,
-        y=target_column
+        y=target_column,
+        ax=axes[i],
+        alpha=0.7
     )
 
-    plt.title(f"{column} vs {target_column}")
-    plt.tight_layout()
+    axes[i].set_title(f"{column} vs {target_column}")
 
-    plt.savefig(OUTPUT_DIR / f"{column}_vs_performance.png")
-    plt.close()
+fig.suptitle(
+    "Feature Relationships with Estimated Performance",
+    fontsize=14
+)
 
-print("\nData analysis and visualization completed.")
-print("Outputs saved in:", OUTPUT_DIR)
+plt.tight_layout()
+
+plt.savefig(
+    OUTPUT_DIR / "feature_relationships.png",
+    dpi=300,
+    bbox_inches="tight"
+)
+
+plt.close()
+
+
+# --------------------------------------------------
+# 8. Completion message
+# --------------------------------------------------
+
+print("\nData analysis and visualization completed!")
+print("Graphs saved in:", OUTPUT_DIR)
