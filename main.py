@@ -106,7 +106,7 @@ def main():
     print(" PROJECT EXECUTION COMPLETED SUCCESSFULLY")
     print("==========================================")
 
-    print("\nAll outputs are available in the outputs folder."
+    print("\nAll outputs are available in the outputs folder.")
 
           
 if __name__ == "__main__":
