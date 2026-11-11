@@ -1,67 +1,36 @@
 # CPU Performance Prediction Using Machine Learning
 
-A Data Science and Artificial Intelligence mini-project that uses Python and machine learning techniques to analyse CPU performance data and predict estimated CPU performance based on hardware-related features.
-
----
+## Group - 61
 
 ## 1. Project Overview
 
-This project focuses on analysing CPU performance data and developing a machine learning model to predict the estimated performance of a CPU.
+This project focuses on predicting CPU performance using Machine Learning techniques in Python.
 
-The project is divided into four main stages:
+The project uses CPU hardware specifications as input features to predict the estimated performance of a CPU. It involves data preprocessing, exploratory data analysis, data visualization, model training and model evaluation.
 
-1. **Data Preprocessing:** Cleaning the dataset, extracting relevant numerical values, and preparing features and target variables.
-2. **Data Analysis and Visualisation:** Exploring the dataset using statistical analysis and graphical visualisations.
-3. **Model Training:** Preparing the data and training a machine learning model.
-4. **Model Evaluation:** Evaluating the trained model using suitable performance metrics and visualisations.
+---
 
-Each team member is responsible for one stage of the project. All members contribute code and maintain their work through GitHub commits.
+## 2. Team Members and Roles
 
-## 2. Project Objectives
+The project is divided among four team members, with each member responsible for a specific component.
 
-- Understand and preprocess CPU performance data.
-- Identify important features related to CPU performance.
-- Perform exploratory data analysis and visualisation.
-- Train a machine learning model to estimate CPU performance.
-- Evaluate the model using appropriate evaluation metrics.
-- Collaborate using GitHub for version control and project management.
+| Team Member | Name | entry No. | Role |
+|---|---|---|---|
+| Member 1 | Prabhnoor Singh | 2026AIB1067 | Execution Lead |
+| Member 2 | Ansh Raj | 2026EEB1323 | Video Lead |
+| Member 3 | Avani Goutam | 2026EEB1329 | PPT Lead |
+| Member 4 | Karan Kumar | 2026MCB1533 | documentation Lead |
 
-## 3. Dataset Description
+All team members contributed to the project through coding, testing and GitHub collaboration.
 
-**Dataset name:** `Sample-Data-CPU-Performance.csv`
+---
 
-The dataset contains CPU-related specifications and their corresponding estimated performance values.
+## 3. Project Structure
 
-### Features used
+The repository is organized into the following directories and files:
 
-| Feature | Description |
-|---|---|
-| CycleTime | CPU cycle time |
-| MinimumMainMemory | Minimum main memory |
-| MaximumMainMemory | Maximum main memory |
-| CacheSize | Cache size |
-| MinimumNumberOfChannels | Minimum number of channels |
-| MaximumNumberOfChannels | Maximum number of channels |
-
-**Target variable:** `EstimatedPerformance`
-
-The dataset is included in the `data/` directory of this repository.
-
-## 4. Team Members and Responsibilities
-
-Team Member     | Entry No.   | Roles
-
-Prabhnoor Singh | 2026AIB1067 | Execution Lead
-Ansh Raj        | 2026EEB1323 | Video Lead 
-Avani Goutam    | 2026EEB1329 | PPT Lead
-Karan Kumar     | 2026MCB1533 | Documentation Lead
-
-All four members contribute to coding and commit their work using their own GitHub accounts.
-
-## 5. Project Structure
-
-text
-AI101-Project-/
+```text
+CPU-Performance-Prediction/
 │
 ├── data/
 │   └── Sample-Data-CPU-Performance.csv
@@ -73,217 +42,163 @@ AI101-Project-/
 │   └── model_evaluation.py
 │
 ├── outputs/
-│   ├── Data_Processing/
-│   ├── Data_Analysis_Visualization/
-│   ├── Model_Training/
-│   └── Model_Evaluation/
+│   ├── cleaned_dataset.csv
+│   ├── features.csv
+│   ├── target.csv
+│   ├── correlation_heatmap.png
+│   ├── feature_relationships.png
+│   ├── trained_model.pkl
+│   ├── evaluation_metrics.csv
+│   └── actual_vs_predicted.png
 │
-├── README.md
-└── requirements.txt
+├── main.py
+├── requirements.txt
+└── README.md
+```
 
+**Directory description:**
 
-**Folder descriptions:**
+- `data/` – Contains the original CPU performance dataset.
+- `notebooks/` – Contains the Python scripts for the four project components.
+- `outputs/` – Stores the processed datasets, visualizations, trained model and evaluation results.
+- `main.py` – Executes all four project components sequentially.
+- `requirements.txt` – Contains the required Python libraries.
+- `README.md` – Provides project documentation and execution instructions.
 
-- `data/` – Contains the original dataset.
-- `notebooks/` – Contains Python scripts for all four project stages.
-- `outputs/Data_Processing/` – Stores cleaned data, features, and target files.
-- `outputs/Data_Analysis_Visualization/` – Stores generated graphs and visualisation results.
-- `outputs/Model_Training/` – Stores model training outputs.
-- `outputs/Model_Evaluation/` – Stores model evaluation results.
-- `requirements.txt` – Contains the Python libraries required to run the project.
+---
 
-## 6. Requirements
+## 4. Dataset Description
 
-Before running the project, ensure that the following software is installed:
+**Dataset:** `Sample-Data-CPU-Performance.csv`
 
-- Python (version used and tested by the team: **[3.14.6]**)
+The dataset contains CPU specifications that are used to predict CPU performance.
+
+**Input Features:**
+
+1. CycleTime
+2. MinimumMainMemory
+3. MaximumMainMemory
+4. CacheSize
+5. MinimumNumberOfChannels
+6. MaximumNumberOfChannels
+
+**Target Variable:**
+
+- `EstimatedPerformance`
+
+The project uses a regression approach to estimate CPU performance based on the given hardware specifications.
+
+---
+
+## 5. Technologies and Libraries Used
+
+- Python
+- Pandas
+- NumPy
+- Matplotlib
+- Seaborn
+- Scikit-learn
+- Joblib
+
+---
+
+## 6. Setup and Installation
+
+### Prerequisites
+
+- Python [3.14.6]
 - Git
-- pip (Python package installer)
 
-All required Python libraries are listed in `requirements.txt`.
+### Step 1: Clone the Repository
 
-## 7. Installation and Setup
-
-Follow these steps to download and run the project on a new Windows computer.
-
-### Step 1: Clone the repository
-
-Open PowerShell and execute:
-
-```powershell
+```bash
 git clone https://github.com/prabhnoorprnc/AI101-Project-.git
 ```
 
-### Step 2: Navigate to the project directory
+### Step 2: Navigate to the Project Directory
 
-```powershell
+```bash
 cd AI101-Project-
 ```
 
-### Step 3: Create a virtual environment
+### Step 3: Create a Virtual Environment (Optional)
 
-```powershell
+```bash
 python -m venv .venv
 ```
 
-### Step 4: Activate the virtual environment
+Activate it on Windows PowerShell:
 
 ```powershell
 .\.venv\Scripts\Activate.ps1
 ```
 
-If PowerShell blocks script execution, run:
+### Step 4: Install Dependencies
 
-```powershell
-Set-ExecutionPolicy -Scope Process -ExecutionPolicy Bypass
-```
-
-Then activate the environment again.
-
-### Step 5: Install the required libraries
-
-```powershell
+```bash
 python -m pip install -r requirements.txt
 ```
 
-After installation, the project is ready to run.
+---
 
-## 8. Steps to Execute the Project
+## 7. How to Run the Project
 
-**Important:** Run the scripts in the following order because later stages depend on the outputs of earlier stages.
+After completing the installation, make sure you are in the main project directory.
 
-### Running the Complete Project
+Execute the following command:
 
-The entire project pipeline can also be executed using a single command:
-
-```powershell
-py main.py
+```bash
+python main.py
 ```
 
-The `main.py` script automatically coordinates all four project stages in the correct sequence:
+The `main.py` file automatically executes all four project components in the correct sequence:
 
-1. Data Preprocessing
-2. Data Analysis and Visualisation
-3. Model Training
-4. Model Evaluation
+1. **Data Preprocessing:** Cleans the dataset and prepares the features and target variable.
+2. **Data Analysis and Visualization:** Performs exploratory data analysis and generates visualizations.
+3. **Model Training:** Trains the machine learning regression model.
+4. **Model Evaluation:** Evaluates the trained model and generates performance results.
 
-It also checks whether the expected output files have been successfully generated, making it easier to verify the execution of the complete project.
-
-
-### 1: Data Preprocessing
-
-```powershell
-python .\notebooks\data_preparation.py
-```
-
-This stage:
-- Loads the original CPU performance dataset.
-- Extracts and prepares the required numerical features.
-- Cleans and organises the dataset.
-- Separates the input features (`X`) and target variable (`y`).
-- Saves the processed files in `outputs/Data_Processing/`.
-
-Expected files:
-
-- `cleaned_dataset.csv`
-- `features.csv`
-- `target.csv`
-
-### 2: Data Analysis and Visualisation
-
-```powershell
-python .\notebooks\data_visualisation.py
-```
-
-This stage:
-- Loads the cleaned dataset.
-- Performs exploratory data analysis.
-- Generates visualisations to understand feature distributions and relationships.
-- Saves the generated graphs in `outputs/Data_Analysis_Visualization/`.
-
-### 3: Model Training
-
-```powershell
-python .\notebooks\model_preparation.py
-```
-
-This stage:
-- Loads the prepared features and target variable.
-- Prepares the data for model training.
-- Splits the dataset into training and testing sets, where applicable.
-- Trains the selected machine learning model.
-- Saves the relevant model training outputs in `outputs/Model_Training/`.
-
-### 4: Model Evaluation
-
-```powershell
-python .\notebooks\model_evaluation.py
-```
-
-This stage:
-- Evaluates the trained machine learning model.
-- Calculates suitable evaluation metrics.
-- Compares actual and predicted values.
-- Generates relevant evaluation visualisations.
-- Saves the evaluation results in `outputs/Model_Evaluation/`.
-
-## 9. Expected Outputs
-
-After successfully executing all four stages, the `outputs/` directory should contain the generated files from preprocessing, visualisation, model training, and model evaluation.
-
-To inspect the generated files, run:
-
-```powershell
-Get-ChildItem .\outputs -Recurse
-```
-
-### Expected Output Screenshot
-
-Add a screenshot showing the successful execution of the project and its important results.
-
-![Expected project output](outputs/screenshots/expected_output.png)
-
-*Replace the image path above with the actual screenshot path committed to the repository.*
-
-## 10. Presentation Slides
-
-The project presentation contains exactly five slides, covering:
-
-1. Title and team introduction
-2. Problem statement and dataset
-3. Approach and methodology
-4. Results
-5. Learnings, contributions, and AI-use disclosure
-
-**Presentation:** [Add link to PPT file or shared presentation]
-
-## 11. Project Demonstration Video
-
-The project demonstration video explains the project workflow, implementation, execution, results, and individual contributions.
-
-The video includes a demonstration of cloning the GitHub repository, installing the required libraries, and running the project.
-
-**Video link:** [Add publicly accessible video link]
-
-*The demonstration video is within the maximum duration of five minutes.*
-
-## 12. AI-Use Disclosure
-
-AI tools were used as supporting resources during project development.
-
-- **ChatGPT:** Assisted with understanding Python code, debugging, project organisation, execution instructions, and drafting documentation.
-- All AI-assisted suggestions are reviewed and adapted by the team.
-- Team members are responsible for understanding the code, implementation, and results they submit.
-
-[Add details of any other AI tools used by the team, or state that no other tools were used.]
-
-## 13. Conclusion
-
-This project provides practical experience in the complete machine learning workflow, from data preprocessing and exploratory data analysis to model training and evaluation.
-
-It also demonstrates teamwork, Python programming, data visualisation, machine learning implementation, and collaborative development using GitHub.
+The generated datasets, graphs, trained model and evaluation results are saved in the `outputs/` directory.
 
 ---
 
-**Course:** AI101 – Data Science and AI Essentials with Python  
-**Institution:** School of AI and Data Engineering, IIT Ropar
+## 8. Expected Outputs
+
+After successful execution, the following outputs are generated:
+
+| Output | Description |
+|---|---|
+| cleaned_dataset.csv | Preprocessed dataset |
+| features.csv | Input features |
+| target.csv | Target variable |
+| correlation_heatmap.png | Correlation between features |
+| feature_relationships.png | Feature relationship visualizations |
+| trained_model.pkl | Saved trained model |
+| evaluation_metrics.csv | Model evaluation metrics |
+| actual_vs_predicted.png | Comparison of actual and predicted values |
+
+
+## 9. Presentation and Video
+
+### Project Presentation
+
+The project presentation contains the problem statement, dataset description, methodology, results and key learnings.
+
+**PPT Link:** [Insert Google Drive or GitHub PPT link]
+
+### Project Demonstration Video
+
+The demonstration video explains the project workflow, code execution, results and individual team contributions.
+
+**Video Link:** [Insert YouTube or Google Drive video link]
+
+---
+
+## 10. AI Use Disclosure
+
+AI tools were used as supporting resources during the development of this project.
+
+- **ChatGPT :** Assisted with improving code structure , making readme structure and making overall structure of PPT.
+- The team members are responsible for understanding the implementation, code, methodology and results of their respective project components.
+
+---
