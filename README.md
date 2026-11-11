@@ -201,4 +201,9 @@ AI tools were used as supporting resources during the development of this projec
 - **ChatGPT :** Assisted with improving code structure , making readme structure and making overall structure of PPT.
 - The team members are responsible for understanding the implementation, code, methodology and results of their respective project components.
 
+## Project Presentation and Demonstration
+
+- **Final Presentation:** https://docs.google.com/presentation/d/130-gsL9GpUxHtDiUrKsc9N3C-KV61VAB/edit?usp=drive_link&ouid=115761855745551992887&rtpof=true&sd=true
+- **Project Demonstration Video:** https://drive.google.com/file/d/1M-PYcRm4EhiG1VTZVLJvto789N4BNGt_/view?usp=drive_link
+
 ---
