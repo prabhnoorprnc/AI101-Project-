@@ -3,19 +3,14 @@ import subprocess
 import sys
 from pathlib import Path
 
-
-
-# Define project directories
+# Project directories
 PROJECT_DIR = Path(__file__).resolve().parent
 NOTEBOOKS_DIR = PROJECT_DIR / "notebooks"
 OUTPUT_DIR = PROJECT_DIR / "outputs"
 
-
-# Create output directory if it doesn't exist
 OUTPUT_DIR.mkdir(parents=True, exist_ok=True)
 
-
-# List all Python scripts in execution order
+# Scripts execution order
 scripts = [
     NOTEBOOKS_DIR / "data_preparation.py",
     NOTEBOOKS_DIR / "data_visualisation.py",
@@ -23,8 +18,7 @@ scripts = [
     NOTEBOOKS_DIR / "model_evaluation.py"
 ]
 
-
-# Expected files generated after successful execution
+# Expected output files
 expected_outputs = [
     Path("Data_Processing/cleaned_dataset.csv"),
 
@@ -33,13 +27,18 @@ expected_outputs = [
 
     Path("Model_Training/linear_regression_model.pkl"),
     Path("Model_Training/evaluation_metrics.csv"),
-    Path("Model_Training/actual_vs_predicted.png")
+    Path("Model_Training/cross_validation_results.csv"),
+    Path("Model_Training/worst_predictions.csv"),
+    Path("Model_Training/actual_vs_predicted.png"),
+    Path("Model_Training/residuals_vs_predicted.png"),
+    Path("Model_Training/residual_distribution.png"),
+    Path("Model_Training/residual_statistics.csv")
 ]
 
 
 def main():
 
-    # Execute each project script sequentially
+    # Execute all scripts
     for script in scripts:
 
         if not script.exists():
@@ -53,8 +52,6 @@ def main():
             text=True
         )
 
-        
-        # Stop execution if any script encounters an error
         if result.returncode != 0:
             print("\nERROR: Project execution failed.")
 
@@ -66,11 +63,11 @@ def main():
 
             sys.exit(result.returncode)
 
-    
-    # Display the status of all expected output files
-    print("\n========== PROJECT OUTPUTS ==========\n")
+    # Display generated output files
+    print("\n========== GENERATED OUTPUTS ==========\n")
 
     for filename in expected_outputs:
+
         file_path = OUTPUT_DIR / filename
 
         if file_path.exists():
@@ -78,16 +75,24 @@ def main():
         else:
             print(f"[MISSING] {filename}")
 
-     # Display evaluation metrics if the CSV file exists
-    metrics_path = OUTPUT_DIR / "Model_Training" / "evaluation_metrics.csv"
+    # Display important evaluation CSV files
+    evaluation_files = [
+        "evaluation_metrics.csv",
+        "cross_validation_results.csv",
+        "worst_predictions.csv",
+        "residual_statistics.csv"
+    ]
 
-    if metrics_path.exists():
-        print("\n========== EVALUATION RESULTS ==========\n")
-        print(metrics_path.read_text(encoding="utf-8"))
+    for filename in evaluation_files:
 
-    print("\n========== EXECUTION COMPLETED ==========")
+        file_path = OUTPUT_DIR / "Model_Training" / filename
+
+        if file_path.exists():
+            print(f"\n========== {filename} ==========\n")
+            print(file_path.read_text(encoding="utf-8"))
+
+    print("\n========== PROJECT COMPLETED ==========")
 
 
-# Run the main function when this file is executed directly
 if __name__ == "__main__":
     main()
