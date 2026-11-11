@@ -8,7 +8,7 @@ PROJECT_DIR = Path(__file__).resolve().parent.parent
 
 DATA_PATH = PROJECT_DIR / "data" / "Sample-Data-CPU-Performance.csv"
 
-OUTPUT_DIR = PROJECT_DIR / "outputs"
+OUTPUT_DIR = PROJECT_DIR / "outputs" / "Data_Processing"
 
 OUTPUT_DIR.mkdir(parents=True, exist_ok=True)
 
